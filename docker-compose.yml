@@ -9,6 +9,9 @@ services:
         image: 'redis:latest'
 
     nginx:
+        depends_on:
+            - api
+            - client
         restart: always
         build: 
             dockerfile: Dockerfile.dev
@@ -33,6 +36,7 @@ services:
             - PGPORT=5432
        
     client:
+        stdin_open: true
         build: 
             dockerfile: Dockerfile.dev
             context: ./client
